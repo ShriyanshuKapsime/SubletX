@@ -23,5 +23,5 @@ def register():
         flash('Account created successfully! You can log in now.', 'success')
         return redirect(url_for('main.register'))
 
-    return render_template('register.html')
+    return render_template('index.html')
 
