@@ -25,3 +25,11 @@ def register():
 
     return render_template('index.html')
 
+@main.route('/')
+def guest():
+    username = session.get('username')
+    if username:
+        return render_template('guest.html', username=username)
+    return render_template('guest.html', username=None)
+
+
