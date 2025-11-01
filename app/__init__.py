@@ -5,19 +5,17 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///subletx.db'
-    app.config['SECRET_KEY'] = 'supersecretkey'
 
+    # Config
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Initialize DB
     db.init_app(app)
 
-    from app.routes import main
-    app.register_blueprint(main)
+    # Register blueprints
+    from app.routes.user_routes import user_bp
+    app.register_blueprint(user_bp)
 
     return app
-
-if __name__ == '__main__':
-    app = create_app()
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
 
