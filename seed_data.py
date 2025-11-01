@@ -29,7 +29,7 @@ with app.app_context():
     renter3.set_password("aditya123")
 
     db.session.add_all([seller1, seller2, seller3, renter1, renter2, renter3])
-    db.session.commit()
+    db.session.commit()  
 
     # --- LISTINGS ---
     netflix = Listing(
@@ -62,7 +62,7 @@ with app.app_context():
     )
 
     db.session.add_all([netflix, spotify, prime, hotstar])
-    db.session.commit()
+    db.session.commit()  
 
     # --- TRANSACTIONS ---
     txn1 = Transaction(listing_id=netflix.id, buyer_id=renter1.id, amount=150.0, status="success")
@@ -73,3 +73,6 @@ with app.app_context():
     db.session.commit()
 
     print("✅ Database seeded successfully with hashed passwords, Users, Listings & Transactions!")
+
+
+
