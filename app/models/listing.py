@@ -1,7 +1,7 @@
 from app import db
 
 class Listing(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(50), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
     price = db.Column(db.Float, nullable=False)
