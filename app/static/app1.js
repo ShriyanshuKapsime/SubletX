@@ -146,12 +146,13 @@ document.getElementById("registerSubmit").addEventListener("click", async () => 
   alert(data.message || "Registration attempted");
 
   if (data.message === "User registered successfully") {
-    window.location.href = "/auth/browse";
+    alert("User Registered Now Please Login!!");
   }
 });
 
 // Guest Login
 document.getElementById("guestLogin").addEventListener("click", () => {
-  alert("Guest mode activated!");
-  modal.style.display = "none";
+  // alert("Guest mode activated!");
+  // modal.style.display = "none";
+   window.location.href ="/auth/browse";
 });
