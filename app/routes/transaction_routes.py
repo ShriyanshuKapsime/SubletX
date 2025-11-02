@@ -141,6 +141,9 @@ def cancel_transaction(txn_id):
 #     txn.status = "success" if outcome == "success" else "failed"
 #     db.session.commit()
 #     return jsonify({"message": f"Transaction {txn.status}", "txn_id": txn.id})
+
+
+
 @transaction_bp.route('/simulate/<txn_id>', methods=['POST'])
 def simulate_payment(txn_id):
     data = request.get_json() or {}
