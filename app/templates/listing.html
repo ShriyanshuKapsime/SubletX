@@ -8,9 +8,19 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">SubletX</div>
-    <a href="/browse" class="btn">Browse Listings</a>
-  </nav>
+  <div class="logo">SubletX</div>
+
+  <div class="nav-right">
+    <button class="btn" onclick="window.location.href='/browse'">Browse</button>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle" id="userMenu">☰</button>
+      <div class="dropdown-content">
+        <a href="/profile">Profile</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
   <section class="listing-section">
     <h1>List Your Subscription</h1>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile | SubletX</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">SubletX</div>
+    <div>
+      <button class="btn" onclick="window.location.href='/browse'">Back to Browse</button>
+    </div>
+  </nav>
+
+  <section class="profile">
+    <h1>My Profile</h1>
+
+    <div id="userInfo" class="user-info">Loading...</div>
+
+    <h2>My Listings</h2>
+    <div id="myListings" class="card-container"></div>
+
+    <h2>My Rentals</h2>
+    <div id="myRentals" class="card-container"></div>
+  </section>
+
+  <script src="{{ url_for('static', filename='profile.js') }}"></script>
+</body>
+</html>

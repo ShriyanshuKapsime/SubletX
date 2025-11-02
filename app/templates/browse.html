@@ -7,11 +7,19 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">SubletX</div>
-    <div>
-      <button class="btn">Rent Your Subscription</button>
+  <div class="logo">SubletX</div>
+
+  <div class="nav-right">
+    <button class="btn">Rent Your Subscription</button>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle" id="userMenu">☰</button>
+      <div class="dropdown-content">
+        <a href="/profile">Profile</a>
+        <a href="/auth/logout">Logout</a>
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <section class="browse">
     <h1>Browse Listings</h1>

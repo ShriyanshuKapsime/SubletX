@@ -19,3 +19,7 @@ def browse():
 @user_bp.route("/listing", methods=['GET'])
 def listing():
     return render_template("listing.html")
+
+@user_bp.route('/profile', methods=['GET'])
+def profile():
+    return render_template("profile.html")
