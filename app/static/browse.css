@@ -1,0 +1,269 @@
+    /* ====== GLOBAL ====== */
+    body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: linear-gradient(to right, #010d1c, #a2adbc, #062954);
+    color: #dcd4bb;
+    scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, p {
+    margin: 0;
+    }
+
+    /* ====== NAVBAR ====== */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    color: white;
+    }
+
+    .logo {
+    font-size: 65px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #cbb977, #a2adbc, #cbb977);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 1s ease, transform 0.4s ease;
+    }
+
+    .logo:hover {
+    background-position: right center;
+    transform: scale(1.03);
+    }
+
+    .btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #d4c48b;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(203, 185, 119, 0.4);
+    backdrop-filter: blur(4px);
+    transition: all 0.35s ease;
+    cursor: pointer;
+    }
+
+    .btn:hover {
+    background: linear-gradient(90deg, #cbb977, #a2adbc);
+    color: #010d1c;
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(203, 185, 119, 0.25);
+    transform: translateY(-2px);
+    }
+
+    /* ====== BROWSE SECTION ====== */
+    .browse {
+  padding: 60px 40px 100px;
+  text-align: center;
+  min-height: auto;  /* instead of 100vh */
+  background: linear-gradient(to right, #010d1c, #a2adbc, #062954);
+ }
+
+    .browse h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, #cbb977, #a2adbc);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+    /* ====== PLATFORM FILTER ====== */
+    #platformFilter {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: #dcd4bb;
+    border: 1px solid rgba(203, 185, 119, 0.3);
+    margin-bottom: 50px;
+    transition: all 0.3s ease;
+    outline: none;
+    }
+
+    #platformFilter:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(203, 185, 119, 0.6);
+    }
+
+    /* ====== LISTING CONTAINER ====== */
+    .listing-container {
+    display: flex;
+    /* flex-wrap: nowrap;
+    overflow-x: auto; */
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+    /* scroll-behavior: smooth; */
+    justify-content: flex-start;
+    }
+
+    /* ====== Custom Scrollbar ====== */
+    .listing-container::-webkit-scrollbar {
+    height: 8px;
+    }
+    .listing-container::-webkit-scrollbar-thumb {
+    background: rgba(203,185,119,0.4);
+    border-radius: 4px;
+    }
+
+    /* ====== LISTING CARD ====== */
+    .listing-card {
+    /* flex: 0 0 300px; */
+    background: rgba(1, 16, 33, 0.85);
+    border: 1px solid rgba(203, 185, 119, 0.25);
+    border-radius: 16px;
+    color: #e8e4d3;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
+    transition: all 0.35s ease;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    }
+
+    .listing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(203,185,119,0.25);
+    }
+
+    .listing-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #cbb977, #98a8c0);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+    .listing-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ddd7c2;
+    margin-bottom: 12px;
+    }
+
+    .listing-card .price {
+    font-weight: 600;
+    color: #cbb977;
+    font-size: 1.1rem;
+    }
+
+    /* ====== RENT BUTTON ====== */
+    .rent-btn {
+    margin-top: 12px;
+    background: linear-gradient(90deg, #cbb977, #a2adbc);
+    border: none;
+    color: #010d1c;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    }
+
+    .rent-btn:hover {
+    background: #e4d7a3;
+    transform: translateY(-2px);
+    }
+    /* ===== PAYMENT MODAL ===== */
+.payment-modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.payment-content {
+  background: rgba(1, 16, 33, 0.95);
+  border: 1px solid rgba(203,185,119,0.3);
+  border-radius: 18px;
+  padding: 30px;
+  width: 400px;
+  text-align: center;
+  color: #e8e4d3;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: fadeIn 0.4s ease;
+}
+
+.payment-content h2 {
+  background: linear-gradient(90deg, #cbb977, #a2adbc);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.payment-content select,
+.payment-content button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(203,185,119,0.4);
+  background: rgba(255,255,255,0.08);
+  color: #dcd4bb;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-content button {
+  background: linear-gradient(90deg, #cbb977, #a2adbc);
+  color: #010d1c;
+  font-weight: 600;
+  border: none;
+}
+
+.payment-content button:hover {
+  transform: translateY(-2px);
+}
+
+.close-btn {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #cbb977;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+    .logo {
+        font-size: 45px;
+    }
+
+    .browse {
+        padding: 60px 20px;
+    }
+
+    .listing-container {
+        gap: 15px;
+    }
+
+    .listing-card {
+        flex: 0 0 260px;
+        padding: 20px;
+    }
+
+    .browse h1 {
+        font-size: 2rem;
+    }
+    }

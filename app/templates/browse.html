@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Subscriptions</title>
+  <meta charset="UTF-8">
+  <title>Browse | SubletX</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='browse.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">SubletX</div>
-        <button type="button" class="btn btn-outline-primary login-btn">List Your Subscription</button>
-    </nav>
+  <nav class="navbar">
+    <div class="logo">SubletX</div>
+    <div>
+      <button class="btn">Rent Your Subscription</button>
+    </div>
+  </nav>
+
+  <section class="browse">
+    <h1>Browse Listings</h1>
+    <select id="platformFilter">
+      <option value="all">All Platforms</option>
+      <option value="netflix">Netflix</option>
+      <option value="spotify">Spotify</option>
+      <option value="prime">Prime Video</option>
+      <option value="hotstar">Hotstar</option>
+    </select>
+
+    <div class="listing-container" id="listingContainer">
+      <p>Loading listings...</p>
+    </div>
+  </section>
+ <!-- Payment Modal -->
+<div id="paymentModal" class="payment-modal">
+  <div class="payment-content">
+    <span class="close-btn" id="closePayment">&times;</span>
+    <h2 id="paymentTitle">Rent Subscription</h2>
+
+    <div id="paymentDetails"></div>
+
+    <label for="paymentMethod">Select Payment Method:</label>
+    <select id="paymentMethod">
+      <option value="upi">UPI</option>
+      <option value="card">Credit/Debit Card</option>
+      <option value="netbanking">Netbanking</option>
+    </select>
+
+    <button id="confirmPayment">Confirm Payment</button>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='browse.js') }}"></script>
+
+
+
+
+  <script src="{{ url_for('static', filename='browse.js') }}"></script>
 </body>
 </html>
