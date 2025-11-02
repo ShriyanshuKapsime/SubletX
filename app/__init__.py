@@ -15,7 +15,9 @@ def create_app():
 
     # Register blueprints
     from app.routes.user_routes import user_bp
+    from app.routes.listing_routes import listing_bp  # ✅ added
+
     app.register_blueprint(user_bp)
+    app.register_blueprint(listing_bp)  # ✅ added
 
     return app
-
