@@ -181,3 +181,4 @@ def seller_earnings(seller_id):
         .scalar()
     )
     return jsonify({"seller_id": seller_id, "total_earnings": total or 0})
+

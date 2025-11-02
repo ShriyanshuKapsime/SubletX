@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/profile")
+  fetch("/api/profile")
     .then(res => res.json())
     .then(data => {
       if (data.error) {
