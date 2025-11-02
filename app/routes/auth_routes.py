@@ -5,7 +5,6 @@ import uuid
 
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
-
 # === REGISTER ===
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -34,7 +33,8 @@ def register():
     session['user_id'] = user.id
     session['username'] = user.username
 
-    return jsonify({"message": "User registered successfully", "redirect": "/auth/dashboard"}), 200
+    # ✅ redirect to browse page instead of dashboard
+    return jsonify({"message": "User registered successfully", "redirect": "/browse"}), 200
 
 
 # === LOGIN ===
@@ -58,10 +58,11 @@ def login():
     session['username'] = user.username
     session['role'] = user.role
 
-    return jsonify({"message": "Login successful", "redirect": "/auth/dashboard"}), 200
+    # ✅ redirect to browse page instead of dashboard
+    return jsonify({"message": "Login successful", "redirect": "/browse"}), 200
 
 
-# === DASHBOARD ===
+# === DASHBOARD === (you can keep for admins or future use)
 @auth_bp.route('/dashboard', methods=['GET'])
 def dashboard():
     if 'user_id' not in session:

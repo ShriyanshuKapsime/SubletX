@@ -124,7 +124,7 @@ document.getElementById("loginSubmit").addEventListener("click", async () => {
 
   if (data.message === "Login successful") {
     // ✅ Redirect to dashboard
-    window.location.href = data.redirect || "/auth/dashboard";
+    window.location.href = data.redirect || "/auth/browse";
   } else {
     alert(data.error || data.message || "Login failed");
   }
@@ -146,7 +146,7 @@ document.getElementById("registerSubmit").addEventListener("click", async () => 
   alert(data.message || "Registration attempted");
 
   if (data.message === "User registered successfully") {
-    window.location.href = "/auth/dashboard";
+    window.location.href = "/auth/browse";
   }
 });
 
