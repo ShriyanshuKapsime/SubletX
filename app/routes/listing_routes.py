@@ -4,23 +4,9 @@ from app.models.listing import Listing
 listing_bp = Blueprint('listing_bp', __name__)
 
 # 🟢 Route to get all listings
-# @listing_bp.route('/listings', methods=['GET', 'POST'])
-# def get_listings():
-#     listings = Listing.query.all()
-#     return jsonify([
-#         {
-#             "id": l.id,
-#             "name": l.name,
-#             "description": l.description,
-#             "price": l.price,
-#             "validity_days": l.validity_days,
-#             "user_id": l.user_id,
-#             "redirect": "/listing"
-#         } for l in listings
-#     ])
-@listing_bp.route('/listings', methods=['GET'])
+@listing_bp.route('/listings', methods=['GET', 'POST'])
 def get_listings():
-    listings = Listing.query.filter_by(is_active=True).all()  # 👈 only active ones
+    listings = Listing.query.all()
     return jsonify([
         {
             "id": l.id,
@@ -32,6 +18,21 @@ def get_listings():
             "redirect": "/listing"
         } for l in listings
     ])
+
+# @listing_bp.route('/listings', methods=['GET'])
+# def get_listings():
+#     listings = Listing.query.filter_by(is_active=True).all()  # 👈 only active ones
+#     return jsonify([
+#         {
+#             "id": l.id,
+#             "name": l.name,
+#             "description": l.description,
+#             "price": l.price,
+#             "validity_days": l.validity_days,
+#             "user_id": l.user_id,
+#             "redirect": "/listing"
+#         } for l in listings
+#     ])
 
 
 # 🟢 Route to get listings by a specific seller
