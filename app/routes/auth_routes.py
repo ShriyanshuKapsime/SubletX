@@ -44,13 +44,15 @@ def login():
         return render_template('login.html')
 
     data = request.get_json(silent=True) or request.form
-    email = data.get('email')
+    identifier = data.get('email') or data.get('username')  # ✅ handle both
     password = data.get('password')
 
-    if not all([email, password]):
-        return jsonify({"error": "Email and password required"}), 400
+    if not all([identifier, password]):
+        return jsonify({"error": "Email/Username and password required"}), 400
 
-    user = User.query.filter_by(email=email).first()
+    # ✅ Try to find user by either email or username
+    user = User.query.filter((User.email == identifier) | (User.username == identifier)).first()
+
     if not user or not user.check_password(password):
         return jsonify({"error": "Invalid credentials"}), 401
 
@@ -59,6 +61,7 @@ def login():
     session['role'] = user.role
 
     return jsonify({"message": "Login successful", "redirect": "/auth/dashboard"}), 200
+
 
 
 # === DASHBOARD ===
