@@ -82,3 +82,6 @@ def dashboard():
 def logout():
     session.clear()
     return redirect(url_for('auth_bp.login'))
+
+
+
