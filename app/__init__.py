@@ -21,6 +21,9 @@ def create_app():
     from app.routes.listing_routes import listing_bp  # ✅ added
     from app.routes.transaction_routes import transaction_bp    
     app.register_blueprint(transaction_bp)
+    from app.routes.auth_routes import auth_bp
+    app.register_blueprint(auth_bp)
+
 
     
     app.register_blueprint(user_bp)
