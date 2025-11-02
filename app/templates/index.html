@@ -8,20 +8,84 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Your Custom CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <h1 class="nav-title">SubletX</h1>
-            <button type="button" class="btn btn-outline-primary">Login</button>
+    <div class="logo">SubletX</div>
+    <button type="button" class="btn btn-outline-primary login-btn">Login</button>
+  </nav>
+   <section class="hero fade-in">
+    <div class="hero-content">
+      <h1>Earn From Your Subscriptions</h1>
+      <p>
+        SubletX is a peer-to-peer marketplace where you can rent or resell your unused digital subscriptions — 
+        just like Airbnb, but for Netflix, Spotify, Prime Video, and more.
+      </p>
+      <button class="cta-btn fade-in">Get Started</button>
+    </div>
+  </section>
+  <section id="features" class="features fade-in">
+    <h2>Why SubletX?</h2>
+    <div class="feature-stack">
+        <div class="feature-card">
+            <h3>💰 Save Money</h3>
+            <p>Pay only for the duration you actually use. No more wasted monthly subscriptions.</p>
         </div>
-    </nav>
+        <div class="feature-card">
+            <h3>🤝 Earn by Sharing</h3>
+            <p>Sublet your unused subscription days and earn extra cash securely.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔒 Secure Escrow Payments</h3>
+            <p>Payments are held safely until both parties confirm — ensuring trust and safety.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ Quick & Easy</h3>
+            <p>List your subscription in seconds, connect instantly with users who need access.</p>
+        </div>
+    </div>
+  </section>
+  <!-- LOGIN / REGISTER MODAL -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    
+    <!-- Login Form -->
+    <div class="form login-form" id="loginForm">
+      <h2>Welcome Back</h2>
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button class="auth-btn" id="loginSubmit">Login</button>
+      <p class="switch-text">New user? 
+        <a href="#" id="switchToRegister">Register</a> 
+        or <a href="#" id="guestLogin">Continue as Guest</a>
+      </p>
+    </div>
+
+    <!-- Register Form -->
+    <div class="form register-form" id="registerForm">
+      <h2>Create Account</h2>
+      <input type="text" id="registerUsername" placeholder="Username" required />
+      <input type="email" id="registerEmail" placeholder="Email" required />
+      <input type="password" id="registerPassword" placeholder="Create Password" required />
+      <button class="auth-btn" id="registerSubmit">Register</button>
+      <p class="switch-text">Already have an account? 
+        <a href="#" id="switchToLogin">Login</a>
+        or <a href="#" id="guestLogin">Continue as Guest</a>
+      </p>
+    </div>
+  </div>
+</div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="{{ url_for('static', filename='app1.js') }}"></script>
 </body>
 </html>
 
