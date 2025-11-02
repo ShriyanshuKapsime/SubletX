@@ -68,18 +68,117 @@ with app.app_context():
         user_id="SELLER_ANAND"
     )
 
-    db.session.add_all([netflix, spotify, prime, hotstar])
+    youtube = Listing(
+        id="LIST_YOUTUBE",
+        name="YouTube Premium",
+        description="7-day YouTube Premium trial — ad-free videos and background play.",
+        price=80.0,
+        validity_days=7,
+        user_id="SELLER_AMIT"
+    )
+
+    zee5 = Listing(
+        id="LIST_ZEE5",
+        name="Zee5 Premium",
+        description="Enjoy 5 days of movies and shows on Zee5 Premium.",
+        price=60.0,
+        validity_days=5,
+        user_id="SELLER_KRISH"
+    )
+
+    crunchyroll = Listing(
+        id="LIST_CRUNCHYROLL",
+        name="Crunchyroll Mega Fan",
+        description="7-day anime binge pass — HD and no ads!",
+        price=100.0,
+        validity_days=7,
+        user_id="SELLER_ANAND"
+    )
+
+    applemusic = Listing(
+        id="LIST_APPLEMUSIC",
+        name="Apple Music Subscription",
+        description="5-day Apple Music access with lossless audio.",
+        price=75.0,
+        validity_days=5,
+        user_id="SELLER_AMIT"
+    )
+
+    # --- NEW ADDITIONS ---
+    canva = Listing(
+        id="LIST_CANVA",
+        name="Canva Pro Access",
+        description="7-day Canva Pro design access — premium templates & assets.",
+        price=70.0,
+        validity_days=7,
+        user_id="SELLER_KRISH"
+    )
+
+    grammarly = Listing(
+        id="LIST_GRAMMARLY",
+        name="Grammarly Premium Account",
+        description="5-day Grammarly Premium access — advanced grammar & tone tools.",
+        price=60.0,
+        validity_days=5,
+        user_id="SELLER_AMIT"
+    )
+
+    midjourney = Listing(
+        id="LIST_MIDJOURNEY",
+        name="Midjourney AI Pass",
+        description="3-day Midjourney AI image generation pass — unlimited prompts.",
+        price=180.0,
+        validity_days=3,
+        user_id="SELLER_ANAND"
+    )
+
+    xbox = Listing(
+        id="LIST_XBOX",
+        name="Xbox Game Pass",
+        description="7-day Xbox Game Pass — play 100+ games on cloud and PC.",
+        price=200.0,
+        validity_days=7,
+        user_id="SELLER_KRISH"
+    )
+
+    studybuddy = Listing(
+        id="LIST_STUDYBUDDY",
+        name="Chegg Study Pack",
+        description="3-day Chegg Study access for homework help and answers.",
+        price=90.0,
+        validity_days=3,
+        user_id="SELLER_AMIT"
+    )
+
+    coursera = Listing(
+        id="LIST_COURSERA",
+        name="Coursera Plus Trial",
+        description="Access Coursera Plus for 5 days — 7000+ courses unlocked.",
+        price=100.0,
+        validity_days=5,
+        user_id="SELLER_ANAND"
+    )
+
+    # add them all
+    db.session.add_all([
+        netflix, spotify, prime, hotstar,
+        youtube, zee5, crunchyroll, applemusic,
+        canva, grammarly, midjourney, xbox, studybuddy, coursera
+    ])
     db.session.commit()
 
     # --- TRANSACTIONS ---
     txn1 = Transaction(id="TXN_001", listing_id="LIST_NETFLIX", buyer_id="RENTER_RIYA", amount=150.0, status="success")
     txn2 = Transaction(id="TXN_002", listing_id="LIST_SPOTIFY", buyer_id="RENTER_MERYEM", amount=50.0, status="success")
     txn3 = Transaction(id="TXN_003", listing_id="LIST_PRIME", buyer_id="RENTER_ADITYA", amount=120.0, status="pending")
+    txn4 = Transaction(id="TXN_004", listing_id="LIST_HOTSTAR", buyer_id="RENTER_RIYA", amount=90.0, status="success")
+    txn5 = Transaction(id="TXN_005", listing_id="LIST_YOUTUBE", buyer_id="RENTER_ADITYA", amount=80.0, status="success")
+    txn6 = Transaction(id="TXN_006", listing_id="LIST_CANVA", buyer_id="RENTER_RIYA", amount=70.0, status="success")
+    txn7 = Transaction(id="TXN_007", listing_id="LIST_XBOX", buyer_id="RENTER_MERYEM", amount=200.0, status="pending")
 
-    db.session.add_all([txn1, txn2, txn3])
+    db.session.add_all([txn1, txn2, txn3, txn4, txn5, txn6, txn7])
     db.session.commit()
 
-    print("✅ Database seeded successfully with professional readable IDs!")
-
+    print("✅ Database seeded successfully with 14 professional listings and transactions!")
 
 
