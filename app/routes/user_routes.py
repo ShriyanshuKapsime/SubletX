@@ -15,3 +15,7 @@ def home():
 @user_bp.route("/browse", methods=['GET'])
 def browse():
     return render_template("browse.html")
+
+@user_bp.route("/listing", methods=['GET'])
+def listing():
+    return render_template("listing.html")

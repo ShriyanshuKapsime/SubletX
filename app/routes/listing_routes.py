@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect
 from app.models.listing import Listing
 
 listing_bp = Blueprint('listing_bp', __name__)
@@ -14,7 +14,8 @@ def get_listings():
             "description": l.description,
             "price": l.price,
             "validity_days": l.validity_days,
-            "user_id": l.user_id
+            "user_id": l.user_id,
+            "redirect": "/listing"
         } for l in listings
     ])
 
