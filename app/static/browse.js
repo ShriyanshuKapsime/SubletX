@@ -2,6 +2,8 @@ let allListings = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("listingContainer");
+  const filter = document.getElementById("platformFilter");
+  const listButton = document.querySelector(".btn");
 
   // Fetch listings
   fetch("/listings")
@@ -11,21 +13,37 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = "<p>No listings available right now.</p>";
         return;
       }
+
       allListings = data;
       renderListings(allListings);
+      populateDropdown(data);
     })
     .catch(err => {
       console.error("Error fetching listings:", err);
       container.innerHTML = "<p>Failed to load listings.</p>";
     });
 
-  // Redirect button
-  document.querySelector(".btn").addEventListener("click", () => {
+  // Redirect to listing page
+  listButton.addEventListener("click", () => {
     window.location.href = "/listing";
+  });
+
+  // Filter change event
+  filter.addEventListener("change", (e) => {
+    const selected = e.target.value.toLowerCase();
+    if (selected === "all") {
+      renderListings(allListings);
+    } else {
+      const filtered = allListings.filter(l => 
+        l.platform?.toLowerCase() === selected || 
+        l.name.toLowerCase().includes(selected)
+      );
+      renderListings(filtered);
+    }
   });
 });
 
-// ===== Render listings =====
+// ===== Function to render listings =====
 function renderListings(listings) {
   const container = document.getElementById("listingContainer");
   container.innerHTML = "";
@@ -48,16 +66,23 @@ function renderListings(listings) {
   });
 }
 
-// ===== Platform filter =====
-document.getElementById("platformFilter").addEventListener("change", (e) => {
-  const selected = e.target.value.toLowerCase();
-  if (selected === "all") {
-    renderListings(allListings);
-  } else {
-    const filtered = allListings.filter(l => l.name.toLowerCase().includes(selected));
-    renderListings(filtered);
-  }
-});
+// ===== Function to dynamically populate dropdown =====
+function populateDropdown(data) {
+  const filter = document.getElementById("platformFilter");
+  const uniquePlatforms = [
+    ...new Set(
+      data.map(l => (l.platform || l.name).trim())
+    ),
+  ];
+
+  filter.innerHTML = `<option value="all">All Platforms</option>`;
+  uniquePlatforms.forEach(p => {
+    const option = document.createElement("option");
+    option.value = p.toLowerCase();
+    option.textContent = p;
+    filter.appendChild(option);
+  });
+}
 
 // ===== Rent popup =====
 document.addEventListener("click", (e) => {
