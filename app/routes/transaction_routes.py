@@ -15,16 +15,32 @@ def create_transaction():
     amount = data.get('amount')
     buyer_id = session.get('user_id') or data.get('buyer_id')
 
-    if not all([listing_id, buyer_id, amount]):
-        return jsonify({"error": "listing_id, buyer_id, and amount are required"}), 400
+    # if not all([listing_id, buyer_id, amount]):
+    #     return jsonify({"error": "listing_id, buyer_id, and amount are required"}), 400
+    #
+    # new_txn = Transaction(
+    #     id=f"TXN_{uuid.uuid4().hex[:6].upper()}",
+    #     listing_id=listing_id,
+    #     buyer_id=buyer_id,
+    #     amount=float(amount),
+    #     status="pending"
+    # )
+
+    # Fill defaults if missing (for hackathon speed)
+    if not listing_id:
+        return jsonify({"error": "listing_id required"}), 400
+
+    buyer_id = buyer_id or "RENTER_DEMO"      # fallback for demo user
+    amount = amount or 100.0                  # placeholder amount
 
     new_txn = Transaction(
         id=f"TXN_{uuid.uuid4().hex[:6].upper()}",
         listing_id=listing_id,
         buyer_id=buyer_id,
         amount=float(amount),
-        status="pending"
+        status="success"  # 👈 auto-mark as success
     )
+
 
     db.session.add(new_txn)
     db.session.commit()
@@ -113,6 +129,18 @@ def cancel_transaction(txn_id):
 
 
 # === SIMULATE PAYMENT (success / failure) ===
+# @transaction_bp.route('/simulate/<txn_id>', methods=['POST'])
+# def simulate_payment(txn_id):
+#     data = request.get_json() or {}
+#     outcome = data.get('outcome', 'success')  # 'success' or 'failure'
+#
+#     txn = Transaction.query.get(txn_id)
+#     if not txn:
+#         return jsonify({"error": "Transaction not found"}), 404
+#
+#     txn.status = "success" if outcome == "success" else "failed"
+#     db.session.commit()
+#     return jsonify({"message": f"Transaction {txn.status}", "txn_id": txn.id})
 @transaction_bp.route('/simulate/<txn_id>', methods=['POST'])
 def simulate_payment(txn_id):
     data = request.get_json() or {}
@@ -123,8 +151,21 @@ def simulate_payment(txn_id):
         return jsonify({"error": "Transaction not found"}), 404
 
     txn.status = "success" if outcome == "success" else "failed"
+
+    # 👇 deactivate the listing if payment succeeded
+    if txn.status == "success":
+        listing = Listing.query.get(txn.listing_id)
+        if listing:
+            listing.is_active = False
+            print(f"Deactivated listing {listing.id}")  # 👀 debugging line
+
     db.session.commit()
-    return jsonify({"message": f"Transaction {txn.status}", "txn_id": txn.id})
+
+    return jsonify({
+        "message": f"Transaction {txn.status}",
+        "txn_id": txn.id
+    })
+
 
 
 # === GET SELLER TOTAL EARNINGS ===
