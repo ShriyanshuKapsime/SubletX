@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>List Your Subscription | SubletX</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='listing.css') }}">
 </head>
 <body>
   <nav class="navbar">
     <div class="logo">SubletX</div>
-    <button class="btn" onclick="window.location.href='/browse'">Back to Browse</button>
+    <a href="/browse" class="btn">Browse Listings</a>
   </nav>
 
-  <section class="list-section">
+  <section class="listing-section">
     <h1>List Your Subscription</h1>
-    <form id="listForm">
-      <label>Platform Name:</label>
-      <input type="text" id="platformName" placeholder="e.g. Netflix Premium" required>
 
-      <label>Description:</label>
-      <textarea id="description" rows="4" placeholder="Short description..." required></textarea>
+    <div class="form-container">
+      <form id="listingForm">
+          <label for="platform">Platform</label>
+          <input type="text" id="platform" placeholder="e.g. Netflix, Spotify, etc." required>
 
-      <label>Price (₹):</label>
-      <input type="number" id="price" placeholder="e.g. 150" required>
+          <label for="name">Subscription Name</label>
+          <input type="text" id="name" placeholder="e.g. Netflix Premium Account" required>
 
-      <label>Validity (days):</label>
-      <input type="number" id="validity" placeholder="e.g. 7" required>
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Add short details..." required></textarea>
 
-      <button type="submit" class="submit-btn">Submit Listing</button>
+          <label for="price">Price (₹)</label>
+          <input type="number" id="price" placeholder="e.g. 150" required>
+
+          <label for="validity">Validity (days)</label>
+          <input type="number" id="validity" placeholder="e.g. 7" required>
+
+          <div class="account-fields">
+            <div>
+              <label for="username">Account Username</label>
+              <input type="text" id="username" placeholder="Enter account username" required>
+            </div>
+            <div>
+              <label for="password">Account Password</label>
+              <input type="text" id="password" placeholder="Enter account password" required>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">List Subscription</button>
+          <p id="responseMsg"></p>
     </form>
 
-    <p id="responseMsg"></p>
+    </div>
   </section>
 
   <script src="{{ url_for('static', filename='listing.js') }}"></script>

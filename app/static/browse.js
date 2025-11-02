@@ -1,9 +1,9 @@
-let allListings = []; // store all listings globally
+let allListings = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("listingContainer");
 
-  // Fetch listings from backend
+  // Fetch listings
   fetch("/listings")
     .then(res => res.json())
     .then(data => {
@@ -11,20 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = "<p>No listings available right now.</p>";
         return;
       }
-
-      allListings = data; // save listings for filtering
-      renderListings(allListings); // show all initially
+      allListings = data;
+      renderListings(allListings);
     })
     .catch(err => {
       console.error("Error fetching listings:", err);
       container.innerHTML = "<p>Failed to load listings.</p>";
     });
+
+  // Redirect button
+  document.querySelector(".btn").addEventListener("click", () => {
+    window.location.href = "/listing";
+  });
 });
 
-// ========== FUNCTION TO RENDER LISTINGS ==========
+// ===== Render listings =====
 function renderListings(listings) {
   const container = document.getElementById("listingContainer");
-  container.innerHTML = ""; // clear previous
+  container.innerHTML = "";
 
   if (!listings.length) {
     container.innerHTML = "<p>No listings found for this platform.</p>";
@@ -40,24 +44,22 @@ function renderListings(listings) {
       <p class="price">₹${listing.price} for ${listing.validity_days} days</p>
       <button class="rent-btn" data-id="${listing.id}">Rent Now</button>
     `;
-    document.getElementById("listingContainer").appendChild(card);
+    container.appendChild(card);
   });
 }
 
-// ========== PLATFORM FILTER LOGIC ==========
+// ===== Platform filter =====
 document.getElementById("platformFilter").addEventListener("change", (e) => {
   const selected = e.target.value.toLowerCase();
   if (selected === "all") {
     renderListings(allListings);
   } else {
-    const filtered = allListings.filter(l =>
-      l.name.toLowerCase().includes(selected)
-    );
+    const filtered = allListings.filter(l => l.name.toLowerCase().includes(selected));
     renderListings(filtered);
   }
 });
 
-// ========== RENT BUTTON POPUP LOGIC ==========
+// ===== Rent popup =====
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("rent-btn")) {
     const card = e.target.closest(".listing-card");
@@ -66,26 +68,22 @@ document.addEventListener("click", (e) => {
     const price = card.querySelector(".price").innerText;
     const id = e.target.dataset.id;
 
-    // Fill modal info
     document.getElementById("paymentDetails").innerHTML = `
       <p><strong>${name}</strong></p>
       <p>${desc}</p>
       <p style="color:#cbb977">${price}</p>
     `;
-
-    // Save current listing ID for payment
     document.getElementById("confirmPayment").dataset.listingId = id;
-
     document.getElementById("paymentModal").style.display = "flex";
   }
 });
 
-// ========== CLOSE MODAL ==========
+// ===== Close modal =====
 document.getElementById("closePayment").addEventListener("click", () => {
   document.getElementById("paymentModal").style.display = "none";
 });
 
-// ========== CONFIRM PAYMENT LOGIC ==========
+// ===== Confirm payment =====
 document.getElementById("confirmPayment").addEventListener("click", async () => {
   const btn = document.getElementById("confirmPayment");
   const listingId = btn.dataset.listingId;
@@ -94,7 +92,7 @@ document.getElementById("confirmPayment").addEventListener("click", async () => 
   btn.innerText = "Processing...";
   btn.disabled = true;
 
-  await new Promise(r => setTimeout(r, 2000)); // simulate loading
+  await new Promise(r => setTimeout(r, 2000)); // simulate payment delay
 
   try {
     const response = await fetch("/transactions/create", {
@@ -121,12 +119,8 @@ document.getElementById("confirmPayment").addEventListener("click", async () => 
       btn.disabled = false;
       btn.style.background = "linear-gradient(90deg, #cbb977, #a2adbc)";
     }, 1500);
-
   } catch (error) {
     console.error("Payment error:", error);
     btn.innerText = "Error ❌";
   }
-  document.querySelector(".btn").addEventListener("click", () => {
-  window.location.href = "/listing"; // route to listing.html
-});
 });

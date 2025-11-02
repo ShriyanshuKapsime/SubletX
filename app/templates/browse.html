@@ -27,28 +27,24 @@
       <p>Loading listings...</p>
     </div>
   </section>
- <!-- Payment Modal -->
-<div id="paymentModal" class="payment-modal">
-  <div class="payment-content">
-    <span class="close-btn" id="closePayment">&times;</span>
-    <h2 id="paymentTitle">Rent Subscription</h2>
 
-    <div id="paymentDetails"></div>
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="payment-modal">
+    <div class="payment-content">
+      <span class="close-btn" id="closePayment">&times;</span>
+      <h2 id="paymentTitle">Rent Subscription</h2>
+      <div id="paymentDetails"></div>
 
-    <label for="paymentMethod">Select Payment Method:</label>
-    <select id="paymentMethod">
-      <option value="upi">UPI</option>
-      <option value="card">Credit/Debit Card</option>
-      <option value="netbanking">Netbanking</option>
-    </select>
+      <label for="paymentMethod">Select Payment Method:</label>
+      <select id="paymentMethod">
+        <option value="upi">UPI</option>
+        <option value="card">Credit/Debit Card</option>
+        <option value="netbanking">Netbanking</option>
+      </select>
 
-    <button id="confirmPayment">Confirm Payment</button>
+      <button id="confirmPayment">Confirm Payment</button>
+    </div>
   </div>
-</div>
-<script src="{{ url_for('static', filename='browse.js') }}"></script>
-
-
-
 
   <script src="{{ url_for('static', filename='browse.js') }}"></script>
 </body>
