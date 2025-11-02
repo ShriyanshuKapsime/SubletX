@@ -55,3 +55,4 @@ def get_listings_by_seller(seller_id):
 #     listings = Listing.query.filter_by(is_active=True).all()  # 👈 only show available
 #     return jsonify([listing.to_dict() for listing in listings])
 
+
