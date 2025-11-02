@@ -81,6 +81,7 @@ closeBtn.addEventListener("click", () => {
   modal.style.display = "none";
   document.body.style.overflow = "auto";
 });
+
 // ===== "Get Started" button opens Register form =====
 const getStartedBtn = document.querySelector(".cta-btn");
 
@@ -91,7 +92,6 @@ getStartedBtn.addEventListener("click", (e) => {
   registerForm.style.display = "block";
   document.body.style.overflow = "hidden";
 });
-    
 
 // Switch between forms
 document.getElementById("switchToRegister").addEventListener("click", (e) => {
@@ -108,19 +108,26 @@ document.getElementById("switchToLogin").addEventListener("click", (e) => {
 
 // ===== SEND TO BACKEND =====
 
+
 // Login
 document.getElementById("loginSubmit").addEventListener("click", async () => {
   const username = document.getElementById("loginUsername").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
 
-  const res = await fetch("/login", {
+  const res = await fetch("/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ email: username, password })
   });
 
   const data = await res.json();
-  alert(data.message || "Login attempted");
+
+  if (data.message === "Login successful") {
+    // ✅ Redirect to dashboard
+    window.location.href = data.redirect || "/auth/dashboard";
+  } else {
+    alert(data.error || data.message || "Login failed");
+  }
 });
 
 // Register
@@ -129,7 +136,7 @@ document.getElementById("registerSubmit").addEventListener("click", async () => 
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
 
-  const res = await fetch("/register", {
+  const res = await fetch("/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, email, password })
@@ -137,6 +144,10 @@ document.getElementById("registerSubmit").addEventListener("click", async () => 
 
   const data = await res.json();
   alert(data.message || "Registration attempted");
+
+  if (data.message === "User registered successfully") {
+    window.location.href = "/auth/dashboard";
+  }
 });
 
 // Guest Login
@@ -144,4 +155,3 @@ document.getElementById("guestLogin").addEventListener("click", () => {
   alert("Guest mode activated!");
   modal.style.display = "none";
 });
-

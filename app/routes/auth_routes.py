@@ -1,40 +1,80 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session, redirect, url_for, render_template
 from app.models.user import User
+from app import db
+import uuid
 
-auth_bp = Blueprint('auth_bp', __name__)
+auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
+
+# === REGISTER ===
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html')
+
+    data = request.get_json(silent=True) or request.form
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+    phone = data.get('phone')
+    role = data.get('role', 'user')
+
+    if not all([username, email, password]):
+        return jsonify({"error": "Username, email, and password required"}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error": "Email already registered"}), 400
+
+    user = User(id=str(uuid.uuid4()), username=username, email=email, phone=phone, role=role)
+    user.set_password(password)
+
+    db.session.add(user)
+    db.session.commit()
+
+    session['user_id'] = user.id
+    session['username'] = user.username
+
+    return jsonify({"message": "User registered successfully", "redirect": "/auth/dashboard"}), 200
+
+
+# === LOGIN ===
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    # --- For GET requests (for testing or browser access) ---
     if request.method == 'GET':
-        return jsonify({
-            "message": "Use POST method to log in.",
-            "example_body": {
-                "email": "anand@example.com",
-                "password": "pass123"
-            }
-        }), 200
+        return render_template('login.html')
 
-    # --- For POST requests ---
-    data = request.get_json()
-
+    data = request.get_json(silent=True) or request.form
     email = data.get('email')
     password = data.get('password')
 
-    if not email or not password:
+    if not all([email, password]):
         return jsonify({"error": "Email and password required"}), 400
 
     user = User.query.filter_by(email=email).first()
-
-    if user and user.check_password(password):
-        return jsonify({
-            "message": "Login successful",
-            "user": {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "role": user.role
-            }
-        }), 200
-    else:
+    if not user or not user.check_password(password):
         return jsonify({"error": "Invalid credentials"}), 401
+
+    session['user_id'] = user.id
+    session['username'] = user.username
+    session['role'] = user.role
+
+    return jsonify({"message": "Login successful", "redirect": "/auth/dashboard"}), 200
+
+
+# === DASHBOARD ===
+@auth_bp.route('/dashboard', methods=['GET'])
+def dashboard():
+    if 'user_id' not in session:
+        return redirect(url_for('auth_bp.login'))
+
+    username = session.get('username')
+    role = session.get('role')
+
+    return render_template('dashboard.html', username=username, role=role)
+
+
+# === LOGOUT ===
+@auth_bp.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect(url_for('auth_bp.login'))
