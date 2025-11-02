@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = {
-      platform: document.getElementById("platform").value.trim(),
+      // platform: document.getElementById("platform").value.trim(),
       name: document.getElementById("name").value.trim(),
       description: document.getElementById("description").value.trim(),
       price: parseFloat(document.getElementById("price").value),
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Basic validation
-    if (!formData.platform || !formData.name || !formData.price || !formData.username || !formData.password) {
+    if (!formData.name || !formData.price || !formData.username || !formData.password) {
       responseMsg.textContent = "⚠️ Please fill all required fields.";
       responseMsg.style.color = "#e57373";
       return;
